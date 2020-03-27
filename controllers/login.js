@@ -1,4 +1,7 @@
-const handleLogin = async (re1, res, db) =>{
+const jwt = require('jsonwebtoken');
+const brcypt = require('bcrypt')
+
+const handleLogin = async (req, res, db) =>{
     const {email:mail, password} = req.body;
     const email= mail.toLowerCase();
 
@@ -9,9 +12,14 @@ const handleLogin = async (re1, res, db) =>{
     if(!user)
         return res.status(400).json({error: 'Invalid email or password'});
     
+    const isPasswordCorrect = await brcypt.compare(password, user.hash);
     
+    if(!isPasswordCorrect)
+    return res.status(400).json({error: 'Invalid email or password'});
+
+    const token = jwt.sign({email}, process.env.JWT_SECRET);
     
-    return res.status(200).json('Logged in sccuessfully');
+    return res.status(200).json({token});
 }
 
 module.exports = handleLogin;

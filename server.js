@@ -8,6 +8,7 @@ const search = require('./controllers/search');
 const handleLogin = require('./controllers/login');
 const handleRegister = require('./controllers/register');
 const menuList = require('./controllers/menu');
+const user = require('./controllers/user');
 
 const app = express();
 
@@ -43,6 +44,10 @@ MongoClient.connect(url, { useUnifiedTopology: true}, (error, client)=>{
     
     app.get('/api/menu', (req, res)=> {
         menuList(req,res,db);
+    })
+
+    app.get('/api/user', (req, res)=>{
+        user(req,res,db);
     })
 
     app.listen(port, () => {
