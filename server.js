@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 const search = require('./controllers/search');
 const handleLogin = require('./controllers/login');
 const handleRegister = require('./controllers/register');
-
+const menuList = require('./controllers/menu');
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 4000;
-const url = process.env.Mongo_URL;
+const url = process.env.MONGO_URL;
 const databaseName =  process.env.DB_NAME;
 
 MongoClient.connect(url, { useUnifiedTopology: true}, (error, client)=>{
@@ -40,6 +41,10 @@ MongoClient.connect(url, { useUnifiedTopology: true}, (error, client)=>{
         search(req,res,db);
     })
     
+    app.get('/api/menu', (req, res)=> {
+        menuList(req,res,db);
+    })
+
     app.listen(port, () => {
         console.log(`app is running on port - ${port}`);
     })

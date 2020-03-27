@@ -1,4 +1,4 @@
-const search = await (req, res, db) => {
+const search = async (req, res, db) => {
     const {query} = req.body;
     const name = new RegExp(query, 'i');
     const results = await db.collection("menu").find({name}).toArray();

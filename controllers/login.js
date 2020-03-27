@@ -5,7 +5,7 @@ const handleLogin = async (re1, res, db) =>{
     if(!email || !password)
         return res.status(400).json({error: 'All fields are required'});
 
-    const user = await db.collection('menu').findOne({ email });
+    const user = await db.collection('users').findOne({ email });
     if(!user)
         return res.status(400).json({error: 'Invalid email or password'});
     
