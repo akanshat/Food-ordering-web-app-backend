@@ -19,7 +19,7 @@ const port = process.env.PORT || 4000;
 const url = process.env.MONGO_URL;
 const databaseName =  process.env.DB_NAME;
 
-MongoClient.connect(url, { useUnifiedTopology: true}, (error, client)=>{
+MongoClient.connect(url, { useUnifiedTopology: true }, (error, client)=>{
     
     if(error)
         throw error;
