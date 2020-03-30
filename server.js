@@ -9,7 +9,6 @@ const handleLogin = require('./controllers/login');
 const handleRegister = require('./controllers/register');
 const menuList = require('./controllers/menu');
 const user = require('./controllers/user');
-const order = require('./controllers/order');
 const app = express();
 
 app.use(cors());
@@ -49,11 +48,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (error, client)=>{
     app.get('/api/user', (req, res)=>{
         user(req,res,db);
     })
-
-    app.post('/api/order', (req, res) =>{
-        order(req, res, db);
-    })
-
 
     app.listen(port, () => {
         console.log(`app is running on port - ${port}`);
